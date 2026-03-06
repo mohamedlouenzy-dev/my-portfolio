@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio | Mohamed El-ouenzy</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --surface: #ffffff;
+      --primary: #1565d8;
+      --primary-dark: #0f4aa3;
+      --text: #1c2432;
+      --muted: #61708a;
+      --accent: #ff8a3d;
+      --shadow: 0 12px 28px rgba(20, 36, 72, 0.12);
+      --radius: 14px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(21, 101, 216, 0.12), transparent 30%),
+        radial-gradient(circle at 100% 0%, rgba(255, 138, 61, 0.12), transparent 25%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: linear-gradient(90deg, var(--primary), #2484ff);
+      color: #fff;
+      padding: 18px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: box-shadow 0.3s ease;
+    }
+
+    header.scrolled {
+      box-shadow: 0 10px 20px rgba(13, 31, 66, 0.2);
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: opacity 0.2s ease;
+    }
+
+    nav a:hover {
+      opacity: 0.8;
+    }
+
+    .hero {
+      padding: 72px 36px 40px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(21, 101, 216, 0.12);
+      color: var(--primary-dark);
+      font-weight: 600;
+      margin-bottom: 14px;
+      font-size: 0.9rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 60ch;
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-main,
+    .btn-outline {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 16px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-main {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 8px 16px rgba(21, 101, 216, 0.28);
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: var(--primary);
+      border: 1px solid rgba(21, 101, 216, 0.35);
+    }
+
+    .btn-main:hover,
+    .btn-outline:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-photo {
+      justify-self: center;
+      width: min(280px, 80vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 6px solid #fff;
+      box-shadow: var(--shadow);
+    }
+
+    section {
+      padding: 46px 36px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.6s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-title {
+      font-size: 1.7rem;
+      margin-bottom: 20px;
+      color: var(--primary-dark);
+    }
+
+    .about-grid,
+    .skills-columns,
+    .projects,
+    .extras {
+      display: grid;
+      gap: 18px;
+    }
+
+    .about-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(17, 44, 88, 0.06);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .skills-columns {
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .skill-group-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      color: var(--primary-dark);
+    }
+
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 0;
+    }
+
+    .skill-list li {
+      background: #eef4ff;
+      color: var(--primary-dark);
+      border: 1px solid #d8e6ff;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .projects {
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .project-meta {
+      margin-top: 12px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .extras {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .contact {
+      text-align: center;
+      background: linear-gradient(160deg, #f8fbff, #eef4ff);
+      border-top: 1px solid rgba(17, 44, 88, 0.08);
+    }
+
+    .contact p {
+      margin: 8px 0;
+    }
+
+    .contact a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .contact a.btn-main {
+      color: #fff;
+      display: inline-flex;
+      margin-top: 8px;
+    }
+
+    footer {
+      background: #132947;
+      color: #d5deeb;
+      text-align: center;
+      padding: 16px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 860px) {
+      header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 14px 16px;
+      }
+
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 36px 16px 24px;
+        text-align: center;
+      }
+
+      .hero p {
+        margin-inline: auto;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      section {
+        padding: 34px 16px;
+      }
+
+      .section-title {
+        font-size: 1.4rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .logo {
+        text-align: center;
+      }
+
+      nav a {
+        font-size: 0.9rem;
+      }
+
+      .hero h1 {
+        font-size: 1.6rem;
+      }
+
+      .hero-badge {
+        font-size: 0.8rem;
+      }
+
+      .btn-main,
+      .btn-outline {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .card {
+        padding: 16px;
+      }
+
+      .project-meta {
+        font-size: 0.8rem;
+      }
+
+      .contact p {
+        font-size: 0.95rem;
+        word-break: break-word;
+      }
+    }
+
+    @media (max-width: 400px) {
+      header {
+        padding: 12px;
+      }
+
+      nav {
+        gap: 8px;
+      }
+
+      nav a {
+        font-size: 0.84rem;
+      }
+
+      .hero {
+        padding: 28px 12px 20px;
+      }
+
+      section {
+        padding: 28px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Mohamed El-ouenzy</div>
+    <nav>
+      <a href="#accueil">Accueil</a>
+      <a href="#apropos">A propos</a>
+      <a href="#competences">Competences</a>
+      <a href="#projets">Projets</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero visible" id="accueil">
+    <div>
+      <span class="hero-badge">Developpeur Full-Stack</span>
+      <h1>Je construis des applications web rapides, fiables et utiles.</h1>
+      <p>
+        Bonjour, je suis Mohamed El-ouenzy. Je travaille sur des projets web modernes avec une approche claire:
+        architecture propre, code maintenable et bonne experience utilisateur.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-main" href="#projets"><i class="bi bi-folder2-open"></i>Voir mes projets</a>
+        <a class="btn-outline" href="#contact"><i class="bi bi-send"></i>Me contacter</a>
+        <a class="btn-outline" href="Mohamed-El-Ouenzy-CV.pdf" download><i class="bi bi-download"></i>Download CV</a>
+      </div>
+    </div>
+    <img class="hero-photo" src="profile.jpeg" alt="Photo de Mohamed El-ouenzy" />
+  </section>
+
+  <section id="apropos">
+    <h2 class="section-title">A propos</h2>
+    <div class="about-grid">
+      <article class="card">
+        <h3>Profil</h3>
+        <p>Developpeur web passionne par la creation de solutions utiles, bien structurees et evolutives.</p>
+      </article>
+      <article class="card">
+        <h3>Objectif</h3>
+        <p>Participer a des projets concrets, livrer de la valeur et continuer a progresser sur les bonnes pratiques.</p>
+      </article>
+      <article class="card">
+        <h3>Methodologie</h3>
+        <p>Analyse du besoin, decoupage clair des taches, tests fonctionnels et amelioration continue.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="competences">
+    <h2 class="section-title">Competences</h2>
+    <div class="skills-columns">
+      <article class="card">
+        <h3 class="skill-group-title"><i class="bi bi-window"></i>Frontend</h3>
+        <ul class="skill-list">
+          <li>HTML5</li>
+          <li>CSS3</li>
+          <li>JavaScript</li>
+          <li>Bootstrap</li>
+          <li>React.js</li>
+          <li>Responsive UI</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3 class="skill-group-title"><i class="bi bi-hdd-network"></i>Backend</h3>
+        <ul class="skill-list">
+          <li>PHP</li>
+          <li>Laravel</li>
+          <li>Node.js</li>
+          <li>REST API</li>
+          <li>SQL</li>
+          <li>MongoDB</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3 class="skill-group-title"><i class="bi bi-gear"></i>Outils & qualite</h3>
+        <ul class="skill-list">
+          <li>Git & GitHub</li>
+          <li>Postman</li>
+          <li>Debugging</li>
+          <li>Clean Code</li>
+          <li>Deployment basic</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="projets">
+    <h2 class="section-title">Projets</h2>
+    <div class="projects">
+      <article class="card">
+        <h3>Plateforme E-commerce</h3>
+        <p>Application complete avec authentification, gestion produits, panier et suivi des commandes.</p>
+        <div class="project-meta">
+          <span><i class="bi bi-stack"></i>Laravel, SQL</span>
+          <span><i class="bi bi-check2-circle"></i>CRUD + auth</span>
+        </div>
+      </article>
+      <article class="card">
+        <h3>Blog Tech Personnel</h3>
+        <p>Blog orienté contenu avec interface simple et publication d articles techniques.</p>
+        <div class="project-meta">
+          <span><i class="bi bi-stack"></i>React, Node.js</span>
+          <span><i class="bi bi-check2-circle"></i>UI responsive</span>
+        </div>
+      </article>
+      <article class="card">
+        <h3>Dashboard Administration</h3>
+        <p>Espace admin pour pilotage des utilisateurs et visualisation des indicateurs principaux.</p>
+        <div class="project-meta">
+          <span><i class="bi bi-stack"></i>PHP, JavaScript</span>
+          <span><i class="bi bi-check2-circle"></i>Role management</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Valeur ajoutee</h2>
+    <div class="extras">
+      <article class="card">
+        <h3>Communication claire</h3>
+        <p>Je partage l avancement, les blocages et les solutions de facon simple et efficace.</p>
+      </article>
+      <article class="card">
+        <h3>Apprentissage continu</h3>
+        <p>Je reste actif sur les nouvelles pratiques pour proposer des implementations modernes.</p>
+      </article>
+      <article class="card">
+        <h3>Orientation resultat</h3>
+        <p>Mon focus principal: livrer une solution utile et stable, pas seulement du code.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2 class="section-title">Contact</h2>
+    <p><i class="bi bi-envelope"></i> Email: <strong>mohamedlwanzi444@gmail.com</strong></p>
+    <p><i class="bi bi-linkedin"></i> LinkedIn: <a href="https://www.linkedin.com/in/el-ouenzy-mohamed-a82a00320" target="_blank" rel="noopener">linkedin.com/in/el-ouenzy-mohamed-a82a00320</a></p>
+    <p><i class="bi bi-telephone"></i> Tel: 0699469444</p>
+    <p><a class="btn-main" href="Mohamed-El-Ouenzy-CV.pdf" download><i class="bi bi-download"></i>Telecharger mon CV</a></p>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Mohamed El-ouenzy. Tous droits reserves.</p>
+  </footer>
+
+  <script>
+    const header = document.querySelector("header");
+    window.addEventListener("scroll", () => {
+      header.classList.toggle("scrolled", window.scrollY > 24);
+    });
+
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.2 });
+
+    sections.forEach((section) => observer.observe(section));
+  </script>
+</body>
+</html>
